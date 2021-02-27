@@ -8,7 +8,7 @@
     <img src="https://raw.githubusercontent.com/rjsf-team/react-jsonschema-form/59a8206e148474bea854bbb004f624143fbcbac8/packages/core/logo.png" alt="Logo" width="180" height="120">
   </a>
 
-  <h3 align="center">react-jsonschema-form</h3>
+  <h3 align="center">A fork of: react-jsonschema-form</h3>
 
   <p align="center">
     A simple <a href="http://facebook.github.io/react/">React</a> component capable of using <a href="http://json-schema.org/">JSON Schema</a> to declaratively build and customize web forms.
