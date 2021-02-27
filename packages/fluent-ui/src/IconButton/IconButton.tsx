@@ -1,9 +1,9 @@
 import React from "react";
 
 import { IconButton, IIconProps } from "@fluentui/react";
-import { AddButtonProps as FuiIconButtonProps } from "@rjsf/core";
+import { AddButtonProps as FuiIconButtonProps } from "@kpilens/core";
 
-const mappings: {[x: string]: string} = {
+const mappings: { [x: string]: string } = {
   remove: "Delete",
   "arrow-up": "Up",
   "arrow-down": "Down",
@@ -14,7 +14,7 @@ type IconButtonProps = FuiIconButtonProps & {
 };
 
 export default (props: IconButtonProps) => (
- <IconButton
+  <IconButton
     disabled={props.disabled}
     onClick={e => props.onClick(e as any)}
     iconProps={{

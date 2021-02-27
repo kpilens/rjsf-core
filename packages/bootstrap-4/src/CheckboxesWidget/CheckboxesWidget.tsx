@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 
 const selectValue = (value: any, selected: any, all: any) => {
   const at = all.indexOf(value);
@@ -78,24 +78,24 @@ const CheckboxesWidget = ({
               />
             </Form>
           ) : (
-            <Form key={index}>
-              <Form.Check
-                custom
-                required={required}
-                checked={checked}
-                className="bg-transparent border-0"
-                type={"checkbox"}
-                id={`${id}_${index}`}
-                label={option.label}
-                autoFocus={autofocus && index === 0}
-                onChange={_onChange(option)}
-                onBlur={_onBlur}
-                onFocus={_onFocus}
-                disabled={disabled || itemDisabled || false}
-                readOnly={readonly}
-              />
-            </Form>
-          );
+              <Form key={index}>
+                <Form.Check
+                  custom
+                  required={required}
+                  checked={checked}
+                  className="bg-transparent border-0"
+                  type={"checkbox"}
+                  id={`${id}_${index}`}
+                  label={option.label}
+                  autoFocus={autofocus && index === 0}
+                  onChange={_onChange(option)}
+                  onBlur={_onBlur}
+                  onFocus={_onFocus}
+                  disabled={disabled || itemDisabled || false}
+                  readOnly={readonly}
+                />
+              </Form>
+            );
         })}
       </Form.Group>
     </>

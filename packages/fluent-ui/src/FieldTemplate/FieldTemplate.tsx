@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldTemplateProps } from "@rjsf/core";
+import { FieldTemplateProps } from "@kpilens/core";
 import { Text, Label } from "@fluentui/react";
 import { List } from "@fluentui/react";
 
@@ -25,7 +25,7 @@ const FieldTemplate = ({
   // TODO: do this better by not returning the form-group class from master.
   classNames = "ms-Grid-col ms-sm12 " + classNames.replace("form-group", "");
   return (
-    <div className={classNames} style={{marginBottom: 15}}>
+    <div className={classNames} style={{ marginBottom: 15 }}>
       {children}
       {/* {displayLabel && <Label>
         {label}

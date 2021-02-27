@@ -5,7 +5,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 
 const RadioWidget = ({
   id,
@@ -22,7 +22,7 @@ const RadioWidget = ({
 }: WidgetProps) => {
   const { enumOptions, enumDisabled } = options;
 
-  const _onChange = ({}, value: any) =>
+  const _onChange = ({ }, value: any) =>
     onChange(schema.type == "boolean" ? value !== "false" : value);
   const _onBlur = ({ target: { value } }: React.FocusEvent<HTMLInputElement>) =>
     onBlur(id, value);

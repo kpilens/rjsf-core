@@ -1,9 +1,9 @@
 import React from "react";
-import { utils } from "@rjsf/core";
+import { utils } from "@kpilens/core";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import { ArrayFieldTemplateProps, IdSchema } from "@rjsf/core";
+import { ArrayFieldTemplateProps, IdSchema } from "@kpilens/core";
 
 import AddButton from "../AddButton/AddButton";
 import IconButton from "../IconButton/IconButton";
@@ -166,42 +166,42 @@ const DefaultNormalArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
     <div>
       <Row className="p-0 m-0">
         <Col className="p-0 m-0">
-        <ArrayFieldTitle
-          key={`array-field-title-${props.idSchema.$id}`}
-          TitleField={props.TitleField}
-          idSchema={props.idSchema}
-          title={props.uiSchema["ui:title"] || props.title}
-          required={props.required}
-        />
-
-        {(props.uiSchema["ui:description"] || props.schema.description) && (
-          <ArrayFieldDescription
-            key={`array-field-description-${props.idSchema.$id}`}
-            DescriptionField={props.DescriptionField}
+          <ArrayFieldTitle
+            key={`array-field-title-${props.idSchema.$id}`}
+            TitleField={props.TitleField}
             idSchema={props.idSchema}
-            description={
-              props.uiSchema["ui:description"] || props.schema.description
-            }
+            title={props.uiSchema["ui:title"] || props.title}
+            required={props.required}
           />
-        )}
 
-        <Container fluid key={`array-item-list-${props.idSchema.$id}`} className="p-0 m-0">
-          {props.items && props.items.map(p => DefaultArrayItem(p))}
-
-          {props.canAdd && (
-            <Container className="">
-              <Row className="mt-2">
-                <Col xs={9}></Col>
-                <Col xs={3} className="py-4 col-lg-3 col-3"> <AddButton
-                  className="array-item-add"
-                  onClick={props.onAddClick}
-                  disabled={props.disabled || props.readonly}
-                /></Col>
-
-              </Row>
-            </Container>
+          {(props.uiSchema["ui:description"] || props.schema.description) && (
+            <ArrayFieldDescription
+              key={`array-field-description-${props.idSchema.$id}`}
+              DescriptionField={props.DescriptionField}
+              idSchema={props.idSchema}
+              description={
+                props.uiSchema["ui:description"] || props.schema.description
+              }
+            />
           )}
-        </Container></Col>
+
+          <Container fluid key={`array-item-list-${props.idSchema.$id}`} className="p-0 m-0">
+            {props.items && props.items.map(p => DefaultArrayItem(p))}
+
+            {props.canAdd && (
+              <Container className="">
+                <Row className="mt-2">
+                  <Col xs={9}></Col>
+                  <Col xs={3} className="py-4 col-lg-3 col-3"> <AddButton
+                    className="array-item-add"
+                    onClick={props.onAddClick}
+                    disabled={props.disabled || props.readonly}
+                  /></Col>
+
+                </Row>
+              </Container>
+            )}
+          </Container></Col>
 
       </Row>
     </div>

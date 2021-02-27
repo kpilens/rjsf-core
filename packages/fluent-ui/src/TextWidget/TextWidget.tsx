@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@fluentui/react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 import _pick from "lodash/pick";
 
 // Keys of ITextFieldProps from @fluentui/react
@@ -70,7 +70,7 @@ const TextWidget = ({
   }: React.FocusEvent<HTMLInputElement>) => onFocus(id, value);
 
   const uiProps = _pick(options.props || {}, allowedProps);
-  const inputType = schema.type === 'string' ?  'text' : `${schema.type}`
+  const inputType = schema.type === 'string' ? 'text' : `${schema.type}`
 
   return (
     <TextField

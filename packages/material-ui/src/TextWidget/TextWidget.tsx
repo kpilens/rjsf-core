@@ -4,7 +4,7 @@ import TextField, {
   StandardTextFieldProps as TextFieldProps,
 } from "@material-ui/core/TextField";
 
-import { WidgetProps, utils } from "@rjsf/core";
+import { WidgetProps, utils } from "@kpilens/core";
 
 const { getDisplayLabel } = utils;
 
@@ -45,7 +45,7 @@ const TextWidget = ({
     uiSchema
     /* TODO: , rootSchema */
   );
-  const inputType = (type || schema.type) === 'string' ?  'text' : `${type || schema.type}`
+  const inputType = (type || schema.type) === 'string' ? 'text' : `${type || schema.type}`
 
   return (
     <TextField

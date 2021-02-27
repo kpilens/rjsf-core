@@ -3,8 +3,8 @@ import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-import { WidgetProps } from "@rjsf/core";
-import { utils } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
+import { utils } from "@kpilens/core";
 
 const { schemaRequiresTrueValue } = utils;
 
@@ -27,7 +27,7 @@ const CheckboxWidget = (props: WidgetProps) => {
   // "const" or "enum" keywords
   const required = schemaRequiresTrueValue(schema);
 
-  const _onChange = ({}, checked: boolean) => onChange(checked);
+  const _onChange = ({ }, checked: boolean) => onChange(checked);
   const _onBlur = ({
     target: { value },
   }: React.FocusEvent<HTMLButtonElement>) => onBlur(id, value);

@@ -1,9 +1,9 @@
 import React from "react";
 import { Label } from "@fluentui/react";
 import { SpinButton } from "@fluentui/react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 import _pick from "lodash/pick";
-import { utils } from "@rjsf/core";
+import { utils } from "@kpilens/core";
 
 const { rangeSpec } = utils;
 
@@ -60,7 +60,7 @@ const UpDownWidget = ({
   options,
   schema,
 }: // autofocus,
-WidgetProps) => {
+  WidgetProps) => {
   const _onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => onChange(Number(value));

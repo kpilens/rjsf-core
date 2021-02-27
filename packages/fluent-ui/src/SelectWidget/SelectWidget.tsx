@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Label, Dropdown, IDropdownOption } from "@fluentui/react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 import _pick from "lodash/pick";
 
 // Keys of IDropdownProps from @fluentui/react
@@ -88,7 +88,7 @@ const SelectWidget = ({
 
   const _onFocus = (e: any) => onFocus(id, e.target.value);
 
-  const newOptions = (enumOptions as {value: any, label: any}[]).map(option => ({
+  const newOptions = (enumOptions as { value: any, label: any }[]).map(option => ({
     key: option.value,
     text: option.label,
     disabled: (enumDisabled as any[] || []).indexOf(option.value) !== -1

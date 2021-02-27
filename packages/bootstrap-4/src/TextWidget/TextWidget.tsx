@@ -2,7 +2,7 @@ import React from "react";
 
 import Form from "react-bootstrap/Form";
 
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 
 export interface TextWidgetProps extends WidgetProps {
   type?: string;
@@ -35,8 +35,8 @@ const TextWidget = ({
   const _onFocus = ({
     target: { value },
   }: React.FocusEvent<HTMLInputElement>) => onFocus(id, value);
-  const inputType = (type || schema.type) === 'string' ?  'text' : `${type || schema.type}`
-  
+  const inputType = (type || schema.type) === 'string' ? 'text' : `${type || schema.type}`
+
   // const classNames = [rawErrors.length > 0 ? "is-invalid" : "", type === 'file' ? 'custom-file-label': ""]
   return (
     <Form.Group className="mb-0">

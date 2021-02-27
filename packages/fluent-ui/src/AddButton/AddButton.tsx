@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AddButtonProps } from "@rjsf/core";
+import { AddButtonProps } from "@kpilens/core";
 
 import { IIconProps, CommandBarButton } from "@fluentui/react";
 
@@ -14,7 +14,7 @@ const AddButton = (props: AddButtonProps) => (
     className={props.className}
     onClick={e => props.onClick(e as any)}
     disabled={props.disabled}
-    />
+  />
 
 );
 

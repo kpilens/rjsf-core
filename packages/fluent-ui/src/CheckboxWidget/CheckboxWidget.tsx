@@ -1,6 +1,6 @@
 import React from "react";
 import { Checkbox, Label } from "@fluentui/react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 import _pick from "lodash/pick";
 
 // Keys of ICheckboxProps from @fluentui/react
@@ -43,7 +43,7 @@ const CheckboxWidget = (props: WidgetProps) => {
     options,
   } = props;
 
-  const _onChange = React.useCallback(({}, checked?: boolean): void => {
+  const _onChange = React.useCallback(({ }, checked?: boolean): void => {
     onChange(checked);
   }, []);
 
@@ -58,17 +58,17 @@ const CheckboxWidget = (props: WidgetProps) => {
 
   return (
     <>
-        <Checkbox
-          id={id}
-          label={label || schema.title}
-          disabled={disabled || readonly}
-          autoFocus={autofocus}
-          onBlur={_onBlur}
-          onFocus={_onFocus}
-          checked={typeof value === "undefined" ? false : value}
-          onChange={_onChange}
-          {...uiProps}
-        />
+      <Checkbox
+        id={id}
+        label={label || schema.title}
+        disabled={disabled || readonly}
+        autoFocus={autofocus}
+        onBlur={_onBlur}
+        onFocus={_onFocus}
+        checked={typeof value === "undefined" ? false : value}
+        onChange={_onChange}
+        {...uiProps}
+      />
     </>
   );
 };

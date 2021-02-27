@@ -1,6 +1,6 @@
-// Originally from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/@rjsf/core/index.d.ts
+// Originally from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/@kpilens/core/index.d.ts
 
-declare module '@rjsf/core' {
+declare module '@kpilens/core' {
     import * as React from 'react';
     import { JSONSchema7, JSONSchema7Definition, JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
 
@@ -94,8 +94,8 @@ declare module '@rjsf/core' {
 
     export interface WidgetProps
         extends Pick<
-            React.HTMLAttributes<HTMLElement>,
-            Exclude<keyof React.HTMLAttributes<HTMLElement>, 'onBlur' | 'onFocus'>
+        React.HTMLAttributes<HTMLElement>,
+        Exclude<keyof React.HTMLAttributes<HTMLElement>, 'onBlur' | 'onFocus'>
         > {
         id: string;
         schema: JSONSchema7;
@@ -431,21 +431,21 @@ declare module '@rjsf/core' {
     }
 }
 
-declare module '@rjsf/core/lib/components/fields/SchemaField' {
+declare module '@kpilens/core/lib/components/fields/SchemaField' {
     import { JSONSchema7 } from 'json-schema';
-    import { FieldProps, UiSchema, IdSchema, FormValidation } from '@rjsf/core';
+    import { FieldProps, UiSchema, IdSchema, FormValidation } from '@kpilens/core';
 
     export type SchemaFieldProps<T = any> = Pick<
         FieldProps<T>,
         'schema' | 'uiSchema' | 'idSchema' | 'formData' | 'errorSchema' | 'registry' | 'formContext'
     >;
 
-    export default class SchemaField extends React.Component<SchemaFieldProps> {}
+    export default class SchemaField extends React.Component<SchemaFieldProps> { }
 }
 
-declare module '@rjsf/core/lib/validate' {
+declare module '@kpilens/core/lib/validate' {
     import { JSONSchema7Definition } from 'json-schema';
-    import { AjvError, ErrorSchema, FormProps } from '@rjsf/core';
+    import { AjvError, ErrorSchema, FormProps } from '@kpilens/core';
 
     export default function validateFormData<T = any>(
         formData: T,

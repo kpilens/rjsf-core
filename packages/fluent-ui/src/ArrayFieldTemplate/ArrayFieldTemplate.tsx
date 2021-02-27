@@ -1,8 +1,8 @@
 import React from "react";
 
-import { utils } from "@rjsf/core";
+import { utils } from "@kpilens/core";
 
-import { ArrayFieldTemplateProps, IdSchema } from "@rjsf/core";
+import { ArrayFieldTemplateProps, IdSchema } from "@kpilens/core";
 
 import AddButton from "../AddButton/AddButton";
 import IconButton from "../IconButton/IconButton";
@@ -71,10 +71,10 @@ const DefaultArrayItem = (props: any) => {
       <div className="ms-Grid-row">
         <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg9">
           <div className="ms-Grid-row">
-          {props.children}
+            {props.children}
           </div>
         </div>
-        <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg3" style={{textAlign: "right"}}>
+        <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg3" style={{ textAlign: "right" }}>
           <IconButton
             icon="arrow-up"
             className="array-item-move-up"

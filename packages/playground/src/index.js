@@ -1,9 +1,9 @@
 import React from "react";
-import { Theme as MuiTheme } from "@rjsf/material-ui";
-import { Theme as FluentUITheme } from "@rjsf/fluent-ui";
-import { Theme as SuiTheme } from "@rjsf/semantic-ui";
-import { Theme as AntdTheme } from "@rjsf/antd";
-import { Theme as Bootstrap4Theme } from "@rjsf/bootstrap-4";
+import { Theme as MuiTheme } from "@kpilens/material-ui";
+import { Theme as FluentUITheme } from "@kpilens/fluent-ui";
+import { Theme as SuiTheme } from "@kpilens/semantic-ui";
+import { Theme as AntdTheme } from "@kpilens/antd";
+import { Theme as Bootstrap4Theme } from "@kpilens/bootstrap-4";
 import Playground from "./app";
 import { render } from "react-dom";
 

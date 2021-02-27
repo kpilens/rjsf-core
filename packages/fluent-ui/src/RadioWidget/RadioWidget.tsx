@@ -1,6 +1,6 @@
 import React from "react";
 import { ChoiceGroup, IChoiceGroupOption } from "@fluentui/react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 import _pick from "lodash/pick";
 
 // Keys of IChoiceGroupProps from @fluentui/react
@@ -49,7 +49,7 @@ const RadioWidget = ({
 
   const row = options ? options.inline : false;
 
-  const newOptions = (enumOptions as {value: any, label: any}[]).map(option => ({
+  const newOptions = (enumOptions as { value: any, label: any }[]).map(option => ({
     key: option.value,
     text: option.label,
     disabled: (enumDisabled as any[] || []).indexOf(option.value) !== -1

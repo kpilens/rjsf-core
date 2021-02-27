@@ -1,5 +1,5 @@
 import React from "react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@kpilens/core";
 import {
   DatePicker,
   DayOfWeek,
@@ -7,7 +7,7 @@ import {
   mergeStyleSets,
 } from "@fluentui/react";
 import _pick from "lodash/pick";
-import { utils } from "@rjsf/core";
+import { utils } from "@kpilens/core";
 
 const { pad } = utils;
 
@@ -68,8 +68,8 @@ const formatDate = (date?: Date) => {
   if (!date) {
     return "";
   }
-  const yyyy = pad(date.getFullYear(), 4);	
-  const MM = pad(date.getMonth() + 1, 2);	
+  const yyyy = pad(date.getFullYear(), 4);
+  const MM = pad(date.getMonth() + 1, 2);
   const dd = pad(date.getDate(), 2);
   return `${yyyy}-${MM}-${dd}`
 }
