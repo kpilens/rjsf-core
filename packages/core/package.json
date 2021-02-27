@@ -128,7 +128,6 @@
   "license": "Apache-2.0",
   "homepage": "https://github.com/kpilens/rjsf-core",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
-  "access": "public"
-}
+    "access": "public"
+  }
 }
