@@ -1,6 +1,6 @@
 {
   "name": "@kpilens/antd",
-  "version": "2.4.2",
+  "version": "2.5.0",
   "description": "Ant Design theme, fields and widgets for react-jsonschema-form",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
