@@ -1,6 +1,6 @@
 import React from "react";
 import { Checkbox, Label } from "@fluentui/react";
-import { WidgetProps } from "@kpilens/core";
+import { WidgetProps } from "@kpilens/rjsf-core";
 import { allowedProps } from "../CheckboxWidget";
 import _pick from "lodash/pick";
 

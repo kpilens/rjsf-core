@@ -1,4 +1,4 @@
-import { utils } from '@kpilens/core';
+import { utils } from '@kpilens/rjsf-core';
 
 import DescriptionField from './fields/DescriptionField';
 import TitleField from './fields/TitleField';

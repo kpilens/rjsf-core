@@ -3,8 +3,8 @@ import React from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-import { WidgetProps } from "@kpilens/core";
-import { utils } from "@kpilens/core";
+import { WidgetProps } from "@kpilens/rjsf-core";
+import { utils } from "@kpilens/rjsf-core";
 
 const { asNumber, guessType } = utils;
 

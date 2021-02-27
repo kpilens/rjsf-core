@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AddButtonProps } from "@kpilens/core";
+import { AddButtonProps } from "@kpilens/rjsf-core";
 import Button from "react-bootstrap/Button";
 import { BsPlus } from "react-icons/bs";
 

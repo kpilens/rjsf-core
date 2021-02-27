@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { utils } from '@kpilens/core';
+import { utils } from '@kpilens/rjsf-core';
 import Button from 'antd/lib/button';
 import Col from 'antd/lib/col';
 import Row from 'antd/lib/row';

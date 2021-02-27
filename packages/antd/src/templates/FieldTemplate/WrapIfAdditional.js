@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { utils } from '@kpilens/core';
+import { utils } from '@kpilens/rjsf-core';
 import Button from 'antd/lib/button';
 import Col from 'antd/lib/col';
 import Form from 'antd/lib/form';

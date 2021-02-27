@@ -4,7 +4,7 @@ import TextField, {
   StandardTextFieldProps as TextFieldProps,
 } from "@material-ui/core/TextField";
 
-import { WidgetProps, utils } from "@kpilens/core";
+import { WidgetProps, utils } from "@kpilens/rjsf-core";
 
 const { getDisplayLabel } = utils;
 

@@ -4,7 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import { WidgetProps } from '@kpilens/core';
+import { WidgetProps } from '@kpilens/rjsf-core';
 
 const UpDownWidget = ({
   id,

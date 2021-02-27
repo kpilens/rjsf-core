@@ -53,10 +53,10 @@ Exports `bootstrap-4` theme, fields and widgets for `react-jsonschema-form`.
 ### Prerequisites
 
 - `react-bootstrap >= 1.0.1`
-- `@kpilens/core >= 2.2.0`
+- `@kpilens/rjsf-core >= 2.2.0`
 
 ```bash
-yarn add react-bootstrap @kpilens/core
+yarn add react-bootstrap @kpilens/rjsf-core
 ```
 
 ### Installation
@@ -74,7 +74,7 @@ import Form from '@kpilens/bootstrap-4';
 or
 
 ```js
-import { withTheme } from '@kpilens/core';
+import { withTheme } from '@kpilens/rjsf-core';
 import { Theme as Bootstrap4Theme } from '@kpilens/bootstrap-4';
 
 const Form = withTheme(Bootstrap4Theme);

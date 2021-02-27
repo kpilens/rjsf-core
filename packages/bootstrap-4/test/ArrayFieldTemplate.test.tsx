@@ -4,7 +4,7 @@ import DescriptionField from "../src/DescriptionField";
 import renderer from "react-test-renderer";
 import TitleField from "../src/TitleField";
 import { mockSchema } from "./helpers/createMocks";
-import { utils } from "@kpilens/core";
+import { utils } from "@kpilens/rjsf-core";
 const { getDefaultRegistry } = utils;
 
 describe("ArrayFieldTemplate", () => {

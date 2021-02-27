@@ -3,8 +3,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/styles';
 
-import { ObjectFieldTemplateProps } from '@kpilens/core';
-import { utils } from '@kpilens/core';
+import { ObjectFieldTemplateProps } from '@kpilens/rjsf-core';
+import { utils } from '@kpilens/rjsf-core';
 
 import AddButton from '../AddButton/AddButton';
 

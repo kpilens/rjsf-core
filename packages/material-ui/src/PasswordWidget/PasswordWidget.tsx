@@ -2,7 +2,7 @@ import React from "react";
 
 import TextField from "@material-ui/core/TextField";
 
-import { WidgetProps } from "@kpilens/core";
+import { WidgetProps } from "@kpilens/rjsf-core";
 
 const PasswordWidget = ({
   id,

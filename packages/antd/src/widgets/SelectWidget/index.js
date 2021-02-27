@@ -1,7 +1,7 @@
 /* eslint-disable no-else-return */
 import React from 'react';
 
-import { utils } from '@kpilens/core';
+import { utils } from '@kpilens/rjsf-core';
 import Select from 'antd/lib/select';
 
 const { asNumber, guessType } = utils;

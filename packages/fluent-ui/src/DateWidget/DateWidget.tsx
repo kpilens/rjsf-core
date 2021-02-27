@@ -1,5 +1,5 @@
 import React from "react";
-import { WidgetProps } from "@kpilens/core";
+import { WidgetProps } from "@kpilens/rjsf-core";
 import {
   DatePicker,
   DayOfWeek,
@@ -7,7 +7,7 @@ import {
   mergeStyleSets,
 } from "@fluentui/react";
 import _pick from "lodash/pick";
-import { utils } from "@kpilens/core";
+import { utils } from "@kpilens/rjsf-core";
 
 const { pad } = utils;
 

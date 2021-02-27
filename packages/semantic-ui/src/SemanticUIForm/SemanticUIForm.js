@@ -1,4 +1,4 @@
-import { withTheme } from '@kpilens/core';
+import { withTheme } from '@kpilens/rjsf-core';
 
 import Theme from "../Theme";
 

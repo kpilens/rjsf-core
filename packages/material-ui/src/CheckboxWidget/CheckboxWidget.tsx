@@ -3,8 +3,8 @@ import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-import { WidgetProps } from "@kpilens/core";
-import { utils } from "@kpilens/core";
+import { WidgetProps } from "@kpilens/rjsf-core";
+import { utils } from "@kpilens/rjsf-core";
 
 const { schemaRequiresTrueValue } = utils;
 

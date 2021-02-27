@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FieldTemplateProps } from "@kpilens/core";
+import { FieldTemplateProps } from "@kpilens/rjsf-core";
 
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";

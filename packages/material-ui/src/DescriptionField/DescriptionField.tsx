@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FieldProps } from '@kpilens/core';
+import { FieldProps } from '@kpilens/rjsf-core';
 
 import { makeStyles } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';

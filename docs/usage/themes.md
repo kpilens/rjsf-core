@@ -7,7 +7,7 @@ meaning that you must load the Bootstrap stylesheet on the page to view the form
 
  Theme Name | Status | Package Name / Link
  ---------- | ------- | -----------
- Bootstrap 3 (default) | Published | `@kpilens/core`
+ Bootstrap 3 (default) | Published | `@kpilens/rjsf-core`
  Bootstrap 4 | Published | `@kpilens/bootstrap-4`
  material-ui | Published | `@kpilens/material-ui`
  fluent-ui | Published | `@kpilens/fluent-ui`
@@ -18,7 +18,7 @@ meaning that you must load the Bootstrap stylesheet on the page to view the form
 ## Using themes
 
 To use a theme from a package, just import the `<Form />` component from that package. For example, to use the material ui form,
-first install both `@kpilens/core` and `@kpilens/material-ui`. Then you can import the form by doing:
+first install both `@kpilens/rjsf-core` and `@kpilens/material-ui`. Then you can import the form by doing:
 
 ```js
 import Form from "@kpilens/material-ui";
@@ -30,15 +30,15 @@ You can also use the uiSchema to add custom CSS class names to your form.
 
 ## Customizing with other frameworks
 
-The default theme is bootstrap 3. In order to use another theme, you must first install `@kpilens/core`.
+The default theme is bootstrap 3. In order to use another theme, you must first install `@kpilens/rjsf-core`.
 
 For example, to use the standard bootstrap 3 form, you can run:
 
 ```js
-import Form from "@kpilens/core";
+import Form from "@kpilens/rjsf-core";
 ```
 
-To use the material-ui form, you should first install both `@kpilens/core` and `@kpilens/material-ui`. Then, you can run:
+To use the material-ui form, you should first install both `@kpilens/rjsf-core` and `@kpilens/material-ui`. Then, you can run:
 
 ```js
 import Form from "@kpilens/material-ui";

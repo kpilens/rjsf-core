@@ -61,10 +61,10 @@ Exports `semantic-ui` theme, fields and widgets for `react-jsonschema-form`.
 
 - `@semantic-ui-react >= 0.87.0`
 - `@semantic-ui-css >= 2.4.1` ([default theme for semantic-ui](https://github.com/Semantic-Org/Semantic-UI-CSS)); see [theming guide](https://react.semantic-ui.com/theming) if you wish to customize
-- `@kpilens/core >= 2.0.0`
+- `@kpilens/rjsf-core >= 2.0.0`
 
 ```sh
-yarn add semantic-ui-css semantic-ui-react @kpilens/core
+yarn add semantic-ui-css semantic-ui-react @kpilens/rjsf-core
 ```
 
 ### Installation
@@ -84,7 +84,7 @@ import Form from '@kpilens/semantic-ui';
 or
 
 ```javascript
-import { withTheme } from '@kpilens/core';
+import { withTheme } from '@kpilens/rjsf-core';
 import { Theme as SemanticUITheme } from '@kpilens/semantic-ui';
 
 // Make modifications to the theme with your own fields and widgets

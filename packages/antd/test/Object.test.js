@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from "react-test-renderer";
-import { withTheme } from '@kpilens/core';
+import { withTheme } from '@kpilens/rjsf-core';
 
 import '../__mocks__/matchMedia.mock';
 import { Theme } from '../src';

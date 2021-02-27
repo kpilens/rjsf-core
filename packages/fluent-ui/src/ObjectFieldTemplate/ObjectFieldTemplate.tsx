@@ -1,5 +1,5 @@
 import React from "react";
-import { ObjectFieldTemplateProps } from "@kpilens/core";
+import { ObjectFieldTemplateProps } from "@kpilens/rjsf-core";
 
 const ObjectFieldTemplate = ({
   DescriptionField,

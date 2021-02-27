@@ -1,4 +1,4 @@
-import { withTheme, FormProps } from '@kpilens/core';
+import { withTheme, FormProps } from '@kpilens/rjsf-core';
 
 import Theme from '../Theme';
 import { StatelessComponent } from 'react';

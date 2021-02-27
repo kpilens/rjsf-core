@@ -1,8 +1,8 @@
 import React from "react";
 import { Slider, Label } from "@fluentui/react";
 
-import { utils } from "@kpilens/core";
-import { WidgetProps } from "@kpilens/core";
+import { utils } from "@kpilens/rjsf-core";
+import { WidgetProps } from "@kpilens/rjsf-core";
 import _pick from "lodash/pick";
 
 const { rangeSpec } = utils;

@@ -1,7 +1,7 @@
 import React from "react";
 import { MessageBar, MessageBarType } from "@fluentui/react";
 import { Label } from "@fluentui/react";
-import { ErrorListProps } from "@kpilens/core";
+import { ErrorListProps } from "@kpilens/rjsf-core";
 const styles = {
   root: [
     {

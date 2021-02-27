@@ -1,9 +1,9 @@
 import React from "react";
-import { utils } from "@kpilens/core";
+import { utils } from "@kpilens/rjsf-core";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import { ArrayFieldTemplateProps, IdSchema } from "@kpilens/core";
+import { ArrayFieldTemplateProps, IdSchema } from "@kpilens/rjsf-core";
 
 import AddButton from "../AddButton/AddButton";
 import IconButton from "../IconButton/IconButton";

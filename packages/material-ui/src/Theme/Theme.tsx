@@ -10,8 +10,8 @@ import FieldTemplate from "../FieldTemplate";
 import ObjectFieldTemplate from "../ObjectFieldTemplate";
 import Widgets from "../Widgets";
 
-import { ThemeProps } from "@kpilens/core";
-import { utils } from "@kpilens/core";
+import { ThemeProps } from "@kpilens/rjsf-core";
+import { utils } from "@kpilens/rjsf-core";
 const { getDefaultRegistry } = utils;
 
 const { fields, widgets } = getDefaultRegistry();

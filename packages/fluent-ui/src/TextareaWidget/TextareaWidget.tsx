@@ -1,6 +1,6 @@
 import React from "react";
 
-import { WidgetProps } from "@kpilens/core";
+import { WidgetProps } from "@kpilens/rjsf-core";
 
 import TextWidget from '../TextWidget';
 

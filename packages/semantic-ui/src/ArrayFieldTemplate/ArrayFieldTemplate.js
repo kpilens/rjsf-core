@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, Grid, Segment } from "semantic-ui-react";
-import { utils } from '@kpilens/core';
+import { utils } from '@kpilens/rjsf-core';
 import AddButton from "../AddButton";
 import { cleanClassNames, getSemanticProps, MaybeWrap } from "../util";
 

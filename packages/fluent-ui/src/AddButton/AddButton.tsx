@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AddButtonProps } from "@kpilens/core";
+import { AddButtonProps } from "@kpilens/rjsf-core";
 
 import { IIconProps, CommandBarButton } from "@fluentui/react";
 

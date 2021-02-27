@@ -1,6 +1,6 @@
-// Originally from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/@kpilens/core/index.d.ts
+// Originally from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/@kpilens/rjsf-core/index.d.ts
 
-declare module '@kpilens/core' {
+declare module '@kpilens/rjsf-core' {
     import * as React from 'react';
     import { JSONSchema7, JSONSchema7Definition, JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
 
@@ -431,9 +431,9 @@ declare module '@kpilens/core' {
     }
 }
 
-declare module '@kpilens/core/lib/components/fields/SchemaField' {
+declare module '@kpilens/rjsf-core/lib/components/fields/SchemaField' {
     import { JSONSchema7 } from 'json-schema';
-    import { FieldProps, UiSchema, IdSchema, FormValidation } from '@kpilens/core';
+    import { FieldProps, UiSchema, IdSchema, FormValidation } from '@kpilens/rjsf-core';
 
     export type SchemaFieldProps<T = any> = Pick<
         FieldProps<T>,
@@ -443,9 +443,9 @@ declare module '@kpilens/core/lib/components/fields/SchemaField' {
     export default class SchemaField extends React.Component<SchemaFieldProps> { }
 }
 
-declare module '@kpilens/core/lib/validate' {
+declare module '@kpilens/rjsf-core/lib/validate' {
     import { JSONSchema7Definition } from 'json-schema';
-    import { AjvError, ErrorSchema, FormProps } from '@kpilens/core';
+    import { AjvError, ErrorSchema, FormProps } from '@kpilens/rjsf-core';
 
     export default function validateFormData<T = any>(
         formData: T,

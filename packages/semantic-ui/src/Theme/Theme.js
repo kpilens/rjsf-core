@@ -1,4 +1,4 @@
-import { utils } from '@kpilens/core';
+import { utils } from '@kpilens/rjsf-core';
 import { Form as SuiForm } from "semantic-ui-react";
 import ArrayFieldTemplate from "../ArrayFieldTemplate";
 import ErrorList from "../ErrorList";

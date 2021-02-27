@@ -1,6 +1,6 @@
 import React from "react";
 
-import { FieldTemplateProps } from "@kpilens/core";
+import { FieldTemplateProps } from "@kpilens/rjsf-core";
 
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
