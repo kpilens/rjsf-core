@@ -1,5 +1,5 @@
 {
-  "name": "@rjsf/material-ui",
+  "name": "@kpilens/material-ui",
   "version": "2.4.2",
   "main": "dist/index.js",
   "module": "dist/material-ui.esm.js",

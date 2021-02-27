@@ -1,5 +1,5 @@
 {
-  "name": "@rjsf/semantic-ui",
+  "name": "@kpilens/semantic-ui",
   "version": "2.4.2",
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
