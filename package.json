@@ -1,6 +1,6 @@
 {
   "name": "@kpilens/rjsf-core",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "description": "A simple React component capable of building HTML forms out of a JSON schema.",
   "scripts": {
     "build": "cross-env NODE_ENV=production rimraf dist && tsdx build --format cjs,es && BABEL_ENV=umd webpack --config webpack.config.dist.js && yarn deprecated:build:cjs && yarn deprecated:build:es && yarn deprecated:build:es:lib",
