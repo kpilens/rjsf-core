@@ -5,9 +5,8 @@ import * as types from "../../types";
 import {
   orderProperties,
   retrieveSchema,
-  getDefaultRegistry,
   canExpand,
-  ADDITIONAL_PROPERTY_FLAG,
+  ADDITIONAL_PROPERTY_FLAG
 } from "../../utils";
 
 function DefaultObjectFieldTemplate(props) {
@@ -49,12 +48,12 @@ class ObjectField extends Component {
     idSchema: {},
     required: false,
     disabled: false,
-    readonly: false,
+    readonly: false
   };
 
   state = {
     wasPropertyKeyModified: false,
-    additionalProperties: {},
+    additionalProperties: {}
   };
 
   isRequired(name) {
@@ -66,7 +65,7 @@ class ObjectField extends Component {
 
   onPropertyChange = (name, addedByAdditionalProperties = false) => {
     return (value, errorSchema) => {
-      if (!value && addedByAdditionalProperties) {
+      if (value === undefined && addedByAdditionalProperties) {
         // Don't set value = undefined for fields added by
         // additionalProperties. Doing so removes them from the
         // formData, which causes them to completely disappear
@@ -82,7 +81,7 @@ class ObjectField extends Component {
         errorSchema &&
           this.props.errorSchema && {
             ...this.props.errorSchema,
-            [name]: errorSchema,
+            [name]: errorSchema
           }
       );
     };
@@ -129,7 +128,7 @@ class ObjectField extends Component {
         errorSchema &&
           this.props.errorSchema && {
             ...this.props.errorSchema,
-            [value]: errorSchema,
+            [value]: errorSchema
           }
       );
     };
@@ -160,7 +159,7 @@ class ObjectField extends Component {
     const newFormData = { ...this.props.formData };
 
     if (schema.additionalProperties.hasOwnProperty("$ref")) {
-      const { registry = getDefaultRegistry() } = this.props;
+      const { registry } = this.props;
       const refSchema = retrieveSchema(
         { $ref: schema.additionalProperties["$ref"] },
         registry.rootSchema,
@@ -187,10 +186,12 @@ class ObjectField extends Component {
       required,
       disabled,
       readonly,
+      hideError,
       idPrefix,
+      idSeparator,
       onBlur,
       onFocus,
-      registry = getDefaultRegistry(),
+      registry
     } = this.props;
 
     const { rootSchema, fields, formContext } = registry;
@@ -229,6 +230,11 @@ class ObjectField extends Component {
         const addedByAdditionalProperties = schema.properties[
           name
         ].hasOwnProperty(ADDITIONAL_PROPERTY_FLAG);
+        const fieldUiSchema = addedByAdditionalProperties
+          ? uiSchema.additionalProperties
+          : uiSchema[name];
+        const hidden = fieldUiSchema && fieldUiSchema["ui:widget"] === "hidden";
+
         return {
           content: (
             <SchemaField
@@ -236,14 +242,11 @@ class ObjectField extends Component {
               name={name}
               required={this.isRequired(name)}
               schema={schema.properties[name]}
-              uiSchema={
-                addedByAdditionalProperties
-                  ? uiSchema.additionalProperties
-                  : uiSchema[name]
-              }
+              uiSchema={fieldUiSchema}
               errorSchema={errorSchema[name]}
               idSchema={idSchema[name]}
               idPrefix={idPrefix}
+              idSeparator={idSeparator}
               formData={(formData || {})[name]}
               wasPropertyKeyModified={this.state.wasPropertyKeyModified}
               onKeyChange={this.onKeyChange(name)}
@@ -256,6 +259,7 @@ class ObjectField extends Component {
               registry={registry}
               disabled={disabled}
               readonly={readonly}
+              hideError={hideError}
               onDropPropertyClick={this.onDropPropertyClick}
             />
           ),
@@ -263,6 +267,7 @@ class ObjectField extends Component {
           readonly,
           disabled,
           required,
+          hidden
         };
       }),
       readonly,
@@ -273,6 +278,7 @@ class ObjectField extends Component {
       schema,
       formData,
       formContext,
+      registry
     };
     return <Template {...templateProps} onAddClick={this.handleAddClick} />;
   }

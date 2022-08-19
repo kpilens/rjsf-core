@@ -3,20 +3,20 @@ import PropTypes from "prop-types";
 import _pick from "lodash/pick";
 import _get from "lodash/get";
 import _isEmpty from "lodash/isEmpty";
-
+import { getDefaultRegistry } from "../defaultRegistry";
 import { default as DefaultErrorList } from "./ErrorList";
 import {
+  deepEquals,
+  mergeObjects,
+  isObject,
   getDefaultFormState,
+  validateFormData,
+  toErrorList,
   retrieveSchema,
   shouldRender,
   toIdSchema,
-  getDefaultRegistry,
-  deepEquals,
-  toPathSchema,
-  isObject,
+  toPathSchema
 } from "../utils";
-import validateFormData, { toErrorList } from "../validate";
-import { mergeObjects } from "../utils";
 
 export default class Form extends Component {
   static defaultProps = {
@@ -24,9 +24,10 @@ export default class Form extends Component {
     noValidate: false,
     liveValidate: false,
     disabled: false,
+    readonly: false,
     noHtml5Validate: false,
     ErrorList: DefaultErrorList,
-    omitExtraData: false,
+    omitExtraData: false
   };
 
   constructor(props) {
@@ -73,12 +74,12 @@ export default class Form extends Component {
       } else if (!props.liveValidate) {
         return {
           errors: state.schemaValidationErrors || [],
-          errorSchema: state.schemaValidationErrorSchema || {},
+          errorSchema: state.schemaValidationErrorSchema || {}
         };
       }
       return {
         errors: state.errors || [],
-        errorSchema: state.errorSchema || {},
+        errorSchema: state.errorSchema || {}
       };
     };
 
@@ -117,7 +118,8 @@ export default class Form extends Component {
       uiSchema["ui:rootFieldId"],
       rootSchema,
       formData,
-      props.idPrefix
+      props.idPrefix,
+      props.idSeparator
     );
     const nextState = {
       schema,
@@ -127,7 +129,7 @@ export default class Form extends Component {
       edit,
       errors,
       errorSchema,
-      additionalMetaSchemas,
+      additionalMetaSchemas
     };
     if (schemaValidationErrors) {
       nextState.schemaValidationErrors = schemaValidationErrors;
@@ -246,7 +248,7 @@ export default class Form extends Component {
 
       newFormData = this.getUsedFormData(formData, fieldNames);
       state = {
-        formData: newFormData,
+        formData: newFormData
       };
     }
 
@@ -269,7 +271,7 @@ export default class Form extends Component {
         errors,
         errorSchema,
         schemaValidationErrors,
-        schemaValidationErrorSchema,
+        schemaValidationErrorSchema
       };
     } else if (!this.props.noValidate && newErrorSchema) {
       const errorSchema = this.props.extraErrors
@@ -282,7 +284,7 @@ export default class Form extends Component {
       state = {
         formData: newFormData,
         errorSchema: errorSchema,
-        errors: toErrorList(errorSchema),
+        errors: toErrorList(errorSchema)
       };
     }
     this.setState(
@@ -350,7 +352,7 @@ export default class Form extends Component {
             errors,
             errorSchema,
             schemaValidationErrors,
-            schemaValidationErrorSchema,
+            schemaValidationErrorSchema
           },
           () => {
             if (this.props.onError) {
@@ -364,6 +366,8 @@ export default class Form extends Component {
       }
     }
 
+    // There are no errors generated through schema validation.
+    // Check for user provided errors and update state accordingly.
     let errorSchema;
     let errors;
     if (this.props.extraErrors) {
@@ -375,7 +379,13 @@ export default class Form extends Component {
     }
 
     this.setState(
-      { formData: newFormData, errors: errors, errorSchema: errorSchema },
+      {
+        formData: newFormData,
+        errors: errors,
+        errorSchema: errorSchema,
+        schemaValidationErrors: [],
+        schemaValidationErrorSchema: {}
+      },
       () => {
         if (this.props.onSubmit) {
           this.props.onSubmit(
@@ -399,7 +409,7 @@ export default class Form extends Component {
       FieldTemplate: this.props.FieldTemplate,
       definitions: this.props.schema.definitions || {},
       rootSchema: this.props.schema,
-      formContext: this.props.formContext || {},
+      formContext: this.props.formContext || {}
     };
   }
 
@@ -407,7 +417,7 @@ export default class Form extends Component {
     if (this.formElement) {
       this.formElement.dispatchEvent(
         new CustomEvent("submit", {
-          cancelable: true,
+          cancelable: true
         })
       );
     }
@@ -418,6 +428,7 @@ export default class Form extends Component {
       children,
       id,
       idPrefix,
+      idSeparator,
       className,
       tagName,
       name,
@@ -430,13 +441,33 @@ export default class Form extends Component {
       acceptcharset,
       noHtml5Validate,
       disabled,
+      readonly,
       formContext,
+      /**
+       * _internalFormWrapper is currently used by the material-ui and semantic-ui themes to provide a custom wrapper
+       * around `<Form />` that supports the proper rendering of those themes. To use this prop, one must pass a
+       * component that takes two props: `children` and `as`. That component, at minimum, should render the `children`
+       * inside of a <form /> tag unless `as` is provided, in which case, use the `as` prop in place of `<form />`.
+       * i.e.:
+       * ```
+       * export default function InternalForm({ children, as}) {
+       *   const FormTag = as || 'form';
+       *   return <FormTag>{children}</FormTag>;
+       * }
+       * ```
+       */
+      _internalFormWrapper
     } = this.props;
 
     const { schema, uiSchema, formData, errorSchema, idSchema } = this.state;
     const registry = this.getRegistry();
     const _SchemaField = registry.fields.SchemaField;
-    const FormTag = tagName ? tagName : "form";
+    // The `semantic-ui` and `material-ui` themes have `_internalFormWrapper`s that take an `as` prop that is the
+    // PropTypes.elementType to use for the inner tag so we'll need to pass `tagName` along if it is provided.
+    // NOTE, the `as` prop is native to `semantic-ui` and is emulated in the `material-ui` theme
+    const as = _internalFormWrapper ? tagName : undefined;
+    const FormTag = _internalFormWrapper || tagName || "form";
+    const SubmitButton = registry.widgets.SubmitButton;
     if (deprecatedAutocomplete) {
       console.warn(
         "Using autocomplete property of Form is deprecated, use autoComplete instead."
@@ -459,9 +490,11 @@ export default class Form extends Component {
         acceptCharset={acceptcharset}
         noValidate={noHtml5Validate}
         onSubmit={this.onSubmit}
+        as={as}
         ref={form => {
           this.formElement = form;
-        }}>
+        }}
+      >
         {this.renderErrors()}
         <_SchemaField
           schema={schema}
@@ -469,6 +502,7 @@ export default class Form extends Component {
           errorSchema={errorSchema}
           idSchema={idSchema}
           idPrefix={idPrefix}
+          idSeparator={idSeparator}
           formContext={formContext}
           formData={formData}
           onChange={this.onChange}
@@ -476,16 +510,9 @@ export default class Form extends Component {
           onFocus={this.onFocus}
           registry={registry}
           disabled={disabled}
+          readonly={readonly}
         />
-        {children ? (
-          children
-        ) : (
-          <div>
-            <button type="submit" className="btn btn-info">
-              Submit
-            </button>
-          </div>
-        )}
+        {children ? children : <SubmitButton uiSchema={uiSchema} />}
       </FormTag>
     );
   }
@@ -496,6 +523,8 @@ if (process.env.NODE_ENV !== "production") {
     schema: PropTypes.object.isRequired,
     uiSchema: PropTypes.object,
     formData: PropTypes.any,
+    disabled: PropTypes.bool,
+    readonly: PropTypes.bool,
     widgets: PropTypes.objectOf(
       PropTypes.oneOfType([PropTypes.func, PropTypes.object])
     ),
@@ -511,6 +540,7 @@ if (process.env.NODE_ENV !== "production") {
     id: PropTypes.string,
     className: PropTypes.string,
     tagName: PropTypes.elementType,
+    _internalFormWrapper: PropTypes.elementType,
     name: PropTypes.string,
     method: PropTypes.string,
     target: PropTypes.string,
@@ -528,6 +558,6 @@ if (process.env.NODE_ENV !== "production") {
     customFormats: PropTypes.object,
     additionalMetaSchemas: PropTypes.arrayOf(PropTypes.object),
     omitExtraData: PropTypes.bool,
-    extraErrors: PropTypes.object,
+    extraErrors: PropTypes.object
   };
 }

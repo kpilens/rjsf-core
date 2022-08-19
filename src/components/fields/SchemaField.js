@@ -8,11 +8,10 @@ import {
   isSelect,
   retrieveSchema,
   toIdSchema,
-  getDefaultRegistry,
-  mergeObjects,
-  deepEquals,
   getSchemaType,
   getDisplayLabel,
+  deepEquals,
+  mergeObjects
 } from "../../utils";
 
 const REQUIRED_FIELD_SYMBOL = "*";
@@ -23,7 +22,7 @@ const COMPONENT_TYPES = {
   number: "NumberField",
   object: "ObjectField",
   string: "StringField",
-  null: "NullField",
+  null: "NullField"
 };
 
 function getFieldComponent(schema, uiSchema, idSchema, fields) {
@@ -85,14 +84,22 @@ function LabelInput(props) {
 }
 
 function Help(props) {
-  const { help } = props;
+  const { id, help } = props;
   if (!help) {
     return null;
   }
   if (typeof help === "string") {
-    return <p className="help-block">{help}</p>;
+    return (
+      <p id={id} className="help-block">
+        {help}
+      </p>
+    );
   }
-  return <div className="help-block">{help}</div>;
+  return (
+    <div id={id} className="help-block">
+      {help}
+    </div>
+  );
 }
 
 function ErrorList(props) {
@@ -127,7 +134,7 @@ function DefaultTemplate(props) {
     description,
     hidden,
     required,
-    displayLabel,
+    displayLabel
   } = props;
   if (hidden) {
     return <div className="hidden">{children}</div>;
@@ -160,7 +167,7 @@ if (process.env.NODE_ENV !== "production") {
     readonly: PropTypes.bool,
     displayLabel: PropTypes.bool,
     fields: PropTypes.object,
-    formContext: PropTypes.object,
+    formContext: PropTypes.object
   };
 }
 
@@ -168,7 +175,7 @@ DefaultTemplate.defaultProps = {
   hidden: false,
   readonly: false,
   required: false,
-  displayLabel: true,
+  displayLabel: true
 };
 
 function WrapIfAdditional(props) {
@@ -181,7 +188,7 @@ function WrapIfAdditional(props) {
     onDropPropertyClick,
     readonly,
     required,
-    schema,
+    schema
   } = props;
   const keyLabel = `${label} Key`; // i18n ?
   const additional = schema.hasOwnProperty(ADDITIONAL_PROPERTY_FLAG);
@@ -229,13 +236,14 @@ function SchemaFieldRender(props) {
     formData,
     errorSchema,
     idPrefix,
+    idSeparator,
     name,
     onChange,
     onKeyChange,
     onDropPropertyClick,
     required,
-    registry = getDefaultRegistry(),
-    wasPropertyKeyModified = false,
+    registry,
+    wasPropertyKeyModified = false
   } = props;
   const { rootSchema, fields, formContext } = registry;
   const FieldTemplate =
@@ -243,7 +251,7 @@ function SchemaFieldRender(props) {
   let idSchema = props.idSchema;
   const schema = retrieveSchema(props.schema, rootSchema, formData);
   idSchema = mergeObjects(
-    toIdSchema(schema, null, rootSchema, formData, idPrefix),
+    toIdSchema(schema, null, rootSchema, formData, idPrefix, idSeparator),
     idSchema
   );
   const FieldComponent = getFieldComponent(schema, uiSchema, idSchema, fields);
@@ -255,6 +263,12 @@ function SchemaFieldRender(props) {
       props.schema.readOnly ||
       schema.readOnly
   );
+  const uiSchemaHideError = uiSchema["ui:hideError"];
+  // Set hideError to the value provided in the uiSchema, otherwise stick with the prop to propagate to children
+  const hideError =
+    uiSchemaHideError === undefined
+      ? props.hideError
+      : Boolean(uiSchemaHideError);
   const autofocus = Boolean(props.autofocus || uiSchema["ui:autofocus"]);
   if (Object.keys(schema).length === 0) {
     return null;
@@ -273,6 +287,7 @@ function SchemaFieldRender(props) {
       uiSchema={{ ...uiSchema, classNames: undefined }}
       disabled={disabled}
       readonly={readonly}
+      hideError={hideError}
       autofocus={autofocus}
       errorSchema={fieldErrorSchema}
       formContext={formContext}
@@ -297,15 +312,13 @@ function SchemaFieldRender(props) {
   const errors = __errors;
   const help = uiSchema["ui:help"];
   const hidden = uiSchema["ui:widget"] === "hidden";
-  const classNames = [
-    "form-group",
-    "field",
-    `field-${schema.type}`,
-    errors && errors.length > 0 ? "field-error has-error has-danger" : "",
-    uiSchema.classNames,
-  ]
-    .join(" ")
-    .trim();
+
+  let classNames = ["form-group", "field", `field-${schema.type}`];
+  if (!hideError && errors && errors.length > 0) {
+    classNames.push("field-error has-error has-danger");
+  }
+  classNames.push(uiSchema.classNames);
+  classNames = classNames.join(" ").trim();
 
   const fieldProps = {
     description: (
@@ -316,10 +329,10 @@ function SchemaFieldRender(props) {
       />
     ),
     rawDescription: description,
-    help: <Help help={help} />,
+    help: <Help id={id + "__help"} help={help} />,
     rawHelp: typeof help === "string" ? help : undefined,
-    errors: <ErrorList errors={errors} />,
-    rawErrors: errors,
+    errors: hideError ? undefined : <ErrorList errors={errors} />,
+    rawErrors: hideError ? undefined : errors,
     id,
     label,
     hidden,
@@ -329,6 +342,7 @@ function SchemaFieldRender(props) {
     required,
     disabled,
     readonly,
+    hideError,
     displayLabel,
     classNames,
     formContext,
@@ -336,7 +350,7 @@ function SchemaFieldRender(props) {
     fields,
     schema,
     uiSchema,
-    registry,
+    registry
   };
 
   const _AnyOfField = registry.fields.AnyOfField;
@@ -355,14 +369,19 @@ function SchemaFieldRender(props) {
         {schema.anyOf && !isSelect(schema) && (
           <_AnyOfField
             disabled={disabled}
+            readonly={readonly}
+            hideError={hideError}
             errorSchema={errorSchema}
             formData={formData}
             idPrefix={idPrefix}
             idSchema={idSchema}
+            idSeparator={idSeparator}
             onBlur={props.onBlur}
             onChange={props.onChange}
             onFocus={props.onFocus}
-            options={schema.anyOf}
+            options={schema.anyOf.map(_schema =>
+              retrieveSchema(_schema, rootSchema, formData)
+            )}
             baseType={schema.type}
             registry={registry}
             schema={schema}
@@ -373,14 +392,19 @@ function SchemaFieldRender(props) {
         {schema.oneOf && !isSelect(schema) && (
           <_OneOfField
             disabled={disabled}
+            readonly={readonly}
+            hideError={hideError}
             errorSchema={errorSchema}
             formData={formData}
             idPrefix={idPrefix}
             idSchema={idSchema}
+            idSeparator={idSeparator}
             onBlur={props.onBlur}
             onChange={props.onChange}
             onFocus={props.onFocus}
-            options={schema.oneOf}
+            options={schema.oneOf.map(_schema =>
+              retrieveSchema(_schema, rootSchema, formData)
+            )}
             baseType={schema.type}
             registry={registry}
             schema={schema}
@@ -409,6 +433,7 @@ SchemaField.defaultProps = {
   disabled: false,
   readonly: false,
   autofocus: false,
+  hideError: false
 };
 
 if (process.env.NODE_ENV !== "production") {
@@ -418,7 +443,7 @@ if (process.env.NODE_ENV !== "production") {
     idSchema: PropTypes.object,
     formData: PropTypes.any,
     errorSchema: PropTypes.object,
-    registry: types.registry.isRequired,
+    registry: types.registry.isRequired
   };
 }
 

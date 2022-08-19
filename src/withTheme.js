@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
-import Form from "./";
+import Form from "./components/Form";
 
 function withTheme(themeProps) {
   return forwardRef(({ fields, widgets, ...directProps }, ref) => {
@@ -21,7 +21,7 @@ function withTheme(themeProps) {
 
 withTheme.propTypes = {
   widgets: PropTypes.object,
-  fields: PropTypes.object,
+  fields: PropTypes.object
 };
 
 export default withTheme;

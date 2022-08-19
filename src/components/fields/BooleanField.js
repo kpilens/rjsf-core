@@ -1,12 +1,7 @@
 import React from "react";
 import * as types from "../../types";
 
-import {
-  getWidget,
-  getUiOptions,
-  optionsList,
-  getDefaultRegistry,
-} from "../../utils";
+import { getWidget, getUiOptions, optionsList } from "../../utils";
 
 function BooleanField(props) {
   const {
@@ -15,7 +10,7 @@ function BooleanField(props) {
     uiSchema,
     idSchema,
     formData,
-    registry = getDefaultRegistry(),
+    registry,
     required,
     disabled,
     readonly,
@@ -23,7 +18,7 @@ function BooleanField(props) {
     onChange,
     onFocus,
     onBlur,
-    rawErrors,
+    rawErrors
   } = props;
   const { title } = schema;
   const { widgets, formContext, fields } = registry;
@@ -36,8 +31,8 @@ function BooleanField(props) {
     enumOptions = optionsList({
       oneOf: schema.oneOf.map(option => ({
         ...option,
-        title: option.title || (option.const === true ? "Yes" : "No"),
-      })),
+        title: option.title || (option.const === true ? "Yes" : "No")
+      }))
     });
   } else {
     enumOptions = optionsList({
@@ -46,7 +41,7 @@ function BooleanField(props) {
         schema.enumNames ||
         (schema.enum && schema.enum[0] === false
           ? ["No", "Yes"]
-          : ["Yes", "No"]),
+          : ["Yes", "No"])
     });
   }
 
@@ -54,6 +49,7 @@ function BooleanField(props) {
     <Widget
       options={{ ...options, enumOptions }}
       schema={schema}
+      uiSchema={uiSchema}
       id={idSchema && idSchema.$id}
       onChange={onChange}
       onFocus={onFocus}
@@ -80,7 +76,7 @@ BooleanField.defaultProps = {
   uiSchema: {},
   disabled: false,
   readonly: false,
-  autofocus: false,
+  autofocus: false
 };
 
 export default BooleanField;

@@ -3,7 +3,12 @@ import { expect } from "chai";
 import sinon from "sinon";
 import { Simulate } from "react-dom/test-utils";
 
-import validateFormData, { isValid, toErrorList } from "../src/validate";
+import {
+  isValid,
+  toErrorList,
+  withIdRefPrefix,
+  validateFormData
+} from "../src/utils";
 import { createFormComponent, submitForm } from "./test_utils";
 
 describe("Validation", () => {
@@ -12,28 +17,86 @@ describe("Validation", () => {
       const schema = {
         type: "object",
         properties: {
-          foo: { type: "string" },
-        },
+          foo: { type: "string" }
+        }
       };
 
-      expect(isValid(schema, { foo: "bar" })).to.be.true;
+      expect(isValid(schema, { foo: "bar" }, schema)).to.be.true;
     });
 
     it("should return false if the data is not valid against the schema", () => {
       const schema = {
         type: "object",
         properties: {
-          foo: { type: "string" },
-        },
+          foo: { type: "string" }
+        }
       };
 
-      expect(isValid(schema, { foo: 12345 })).to.be.false;
+      expect(isValid(schema, { foo: 12345 }, schema)).to.be.false;
     });
 
     it("should return false if the schema is invalid", () => {
       const schema = "foobarbaz";
 
-      expect(isValid(schema, { foo: "bar" })).to.be.false;
+      expect(isValid(schema, { foo: "bar" }, schema)).to.be.false;
+    });
+
+    it("should return true if the data is valid against the schema including refs to rootSchema", () => {
+      const schema = {
+        anyOf: [{ $ref: "#/defs/foo" }]
+      };
+      const rootSchema = {
+        defs: {
+          foo: {
+            properties: {
+              name: { type: "string" }
+            }
+          }
+        }
+      };
+      const formData = {
+        name: "John Doe"
+      };
+
+      expect(isValid(schema, formData, rootSchema)).to.be.true;
+    });
+  });
+
+  describe("validate.withIdRefPrefix", () => {
+    it("should recursively add id prefix to all refs", () => {
+      const schema = {
+        anyOf: [{ $ref: "#/defs/foo" }]
+      };
+      const expected = {
+        anyOf: [{ $ref: "__rjsf_rootSchema#/defs/foo" }]
+      };
+
+      expect(withIdRefPrefix(schema)).to.eql(expected);
+    });
+
+    it("shouldn't mutate the schema", () => {
+      const schema = {
+        anyOf: [{ $ref: "#/defs/foo" }]
+      };
+
+      withIdRefPrefix(schema);
+
+      expect(schema).to.eql({
+        anyOf: [{ $ref: "#/defs/foo" }]
+      });
+    });
+
+    it("should not change a property named '$ref'", () => {
+      const schema = {
+        title: "A registration form",
+        description: "A simple form example.",
+        type: "object",
+        properties: {
+          $ref: { type: "string", title: "First name", default: "Chuck" }
+        }
+      };
+
+      expect(withIdRefPrefix(schema)).to.eql(schema);
     });
   });
 
@@ -44,8 +107,8 @@ describe("Validation", () => {
         type: "object",
         properties: {
           foo: { type: "string" },
-          [illFormedKey]: { type: "string" },
-        },
+          [illFormedKey]: { type: "string" }
+        }
       };
 
       let errors, errorSchema;
@@ -81,9 +144,9 @@ describe("Validation", () => {
             title: "Price per task ($)",
             type: "number",
             multipleOf: 0.01,
-            minimum: 0,
-          },
-        },
+            minimum: 0
+          }
+        }
       };
 
       let errors;
@@ -107,13 +170,13 @@ describe("Validation", () => {
             properties: {
               datasetId: {
                 pattern: "\\d+",
-                type: "string",
-              },
+                type: "string"
+              }
             },
             required: ["datasetId"],
-            type: "object",
-          },
-        },
+            type: "object"
+          }
+        }
       };
       const metaSchemaDraft4 = require("ajv/lib/refs/json-schema-draft-04.json");
       const metaSchemaDraft6 = require("ajv/lib/refs/json-schema-draft-06.json");
@@ -128,11 +191,11 @@ describe("Validation", () => {
         expect(errors.errors[0].stack).to.equal(errMessage);
         expect(errors.errors).to.eql([
           {
-            stack: errMessage,
-          },
+            stack: errMessage
+          }
         ]);
         expect(errors.errorSchema).to.eql({
-          $schema: { __errors: [errMessage] },
+          $schema: { __errors: [errMessage] }
         });
       });
       it("should return a validation error about formData", () => {
@@ -169,9 +232,9 @@ describe("Validation", () => {
         properties: {
           phone: {
             type: "string",
-            format: "phone-us",
-          },
-        },
+            format: "phone-us"
+          }
+        }
       };
 
       it("should not return a validation error if unknown string format is used", () => {
@@ -203,9 +266,9 @@ describe("Validation", () => {
             properties: {
               phone: {
                 type: "string",
-                format: "area-code",
-              },
-            },
+                format: "area-code"
+              }
+            }
           },
           null,
           null,
@@ -228,8 +291,8 @@ describe("Validation", () => {
         required: ["pass1", "pass2"],
         properties: {
           pass1: { type: "string" },
-          pass2: { type: "string" },
-        },
+          pass2: { type: "string" }
+        }
       };
 
       beforeEach(() => {
@@ -261,13 +324,13 @@ describe("Validation", () => {
         type: "object",
         properties: {
           dataUrlWithName: { type: "string", format: "data-url" },
-          dataUrlWithoutName: { type: "string", format: "data-url" },
-        },
+          dataUrlWithoutName: { type: "string", format: "data-url" }
+        }
       };
 
       it("Data-Url with name is accepted", () => {
         const formData = {
-          dataUrlWithName: "data:text/plain;name=file1.txt;base64,x=",
+          dataUrlWithName: "data:text/plain;name=file1.txt;base64,x="
         };
         const result = validateFormData(formData, schema);
         expect(result.errors).to.have.length.of(0);
@@ -275,7 +338,7 @@ describe("Validation", () => {
 
       it("Data-Url without name is accepted", () => {
         const formData = {
-          dataUrlWithoutName: "data:text/plain;base64,x=",
+          dataUrlWithoutName: "data:text/plain;base64,x="
         };
         const result = validateFormData(formData, schema);
         expect(result.errors).to.have.length.of(0);
@@ -288,9 +351,9 @@ describe("Validation", () => {
         properties: {
           foo: {
             type: "string",
-            required: "invalid_type_non_array",
-          },
-        },
+            required: "invalid_type_non_array"
+          }
+        }
       };
 
       let errors, errorSchema;
@@ -305,7 +368,7 @@ describe("Validation", () => {
         expect(errors).to.have.length.of(1);
         expect(errors[0].name).eql("type");
         expect(errors[0].property).eql(".properties['foo'].required");
-        expect(errors[0].schemaPath).eql("#/definitions/stringArray/type"); // TODO: This schema path is wrong due to a bug in ajv; change this test when https://github.com/epoberezkin/ajv/issues/512 is fixed.
+        expect(errors[0].schemaPath).eql("#/definitions/stringArray/type"); // TODO: This schema path is wrong due to a bug in ajv; change this test when https://github.com/ajv-validator/ajv/issues/512 is fixed.
         expect(errors[0].message).eql("should be array");
       });
 
@@ -327,19 +390,19 @@ describe("Validation", () => {
           __errors: ["err1", "err2"],
           a: {
             b: {
-              __errors: ["err3", "err4"],
-            },
+              __errors: ["err3", "err4"]
+            }
           },
           c: {
-            __errors: ["err5"],
-          },
+            __errors: ["err5"]
+          }
         })
       ).eql([
         { stack: "root: err1" },
         { stack: "root: err2" },
         { stack: "b: err3" },
         { stack: "b: err4" },
-        { stack: "c: err5" },
+        { stack: "c: err5" }
       ]);
     });
   });
@@ -350,8 +413,8 @@ describe("Validation", () => {
       type: "object",
       properties: {
         foo: { type: "string" },
-        [illFormedKey]: { type: "string" },
-      },
+        [illFormedKey]: { type: "string" }
+      }
     };
     const newErrorMessage = "Better error message";
     const transformErrors = errors => {
@@ -394,8 +457,8 @@ describe("Validation", () => {
           required: ["foo"],
           properties: {
             foo: { type: "string" },
-            bar: { type: "string" },
-          },
+            bar: { type: "string" }
+          }
         };
 
         let onError, node;
@@ -403,8 +466,8 @@ describe("Validation", () => {
           const compInfo = createFormComponent({
             schema,
             formData: {
-              foo: undefined,
-            },
+              foo: undefined
+            }
           });
           onError = compInfo.onError;
           node = compInfo.node;
@@ -419,8 +482,8 @@ describe("Validation", () => {
               params: { missingProperty: "foo" },
               property: ".foo",
               schemaPath: "#/required",
-              stack: ".foo is a required property",
-            },
+              stack: ".foo is a required property"
+            }
           ]);
         });
 
@@ -439,9 +502,9 @@ describe("Validation", () => {
           properties: {
             foo: {
               type: "string",
-              minLength: 10,
-            },
-          },
+              minLength: 10
+            }
+          }
         };
 
         let node, onError;
@@ -451,9 +514,9 @@ describe("Validation", () => {
           const compInfo = createFormComponent({
             schema,
             formData: {
-              foo: "123456789",
+              foo: "123456789"
             },
-            onError,
+            onError
           });
           node = compInfo.node;
 
@@ -475,8 +538,8 @@ describe("Validation", () => {
               params: { limit: 10 },
               property: ".foo",
               schemaPath: "#/properties/foo/minLength",
-              stack: ".foo should NOT be shorter than 10 characters",
-            },
+              stack: ".foo should NOT be shorter than 10 characters"
+            }
           ]);
         });
       });
@@ -497,12 +560,12 @@ describe("Validation", () => {
         const { onError, node } = createFormComponent({
           schema,
           validate,
-          formData,
+          formData
         });
 
         submitForm(node);
         sinon.assert.calledWithMatch(onError.lastCall, [
-          { stack: "root: Invalid" },
+          { stack: "root: Invalid" }
         ]);
       });
 
@@ -521,16 +584,16 @@ describe("Validation", () => {
           schema,
           validate,
           formData,
-          liveValidate: true,
+          liveValidate: true
         });
         Simulate.change(node.querySelector("input"), {
-          target: { value: "1234" },
+          target: { value: "1234" }
         });
 
         sinon.assert.calledWithMatch(onChange.lastCall, {
           errorSchema: { __errors: ["Invalid"] },
           errors: [{ stack: "root: Invalid" }],
-          formData: "1234",
+          formData: "1234"
         });
       });
 
@@ -550,7 +613,7 @@ describe("Validation", () => {
           schema,
           formData,
           validate,
-          onSubmit,
+          onSubmit
         });
 
         submitForm(node);
@@ -576,7 +639,7 @@ describe("Validation", () => {
           formData,
           validate,
           onSubmit,
-          onError,
+          onError
         });
 
         submitForm(node);
@@ -590,8 +653,8 @@ describe("Validation", () => {
           type: "object",
           properties: {
             pass1: { type: "string", minLength: 3 },
-            pass2: { type: "string", minLength: 3 },
-          },
+            pass2: { type: "string", minLength: 3 }
+          }
         };
 
         const formData = { pass1: "aaa", pass2: "b" };
@@ -607,12 +670,12 @@ describe("Validation", () => {
         const { node, onError } = createFormComponent({
           schema,
           validate,
-          formData,
+          formData
         });
         submitForm(node);
         sinon.assert.calledWithMatch(onError.lastCall, [
           { stack: "pass2: should NOT be shorter than 3 characters" },
-          { stack: "pass2: Passwords don't match" },
+          { stack: "pass2: Passwords don't match" }
         ]);
       });
 
@@ -623,14 +686,14 @@ describe("Validation", () => {
             type: "object",
             properties: {
               pass1: { type: "string" },
-              pass2: { type: "string" },
-            },
-          },
+              pass2: { type: "string" }
+            }
+          }
         };
 
         const formData = [
           { pass1: "a", pass2: "b" },
-          { pass1: "a", pass2: "a" },
+          { pass1: "a", pass2: "a" }
         ];
 
         function validate(formData, errors) {
@@ -645,12 +708,12 @@ describe("Validation", () => {
         const { node, onError } = createFormComponent({
           schema,
           validate,
-          formData,
+          formData
         });
 
         submitForm(node);
         sinon.assert.calledWithMatch(onError.lastCall, [
-          { stack: "pass2: Passwords don't match" },
+          { stack: "pass2: Passwords don't match" }
         ]);
       });
 
@@ -658,8 +721,8 @@ describe("Validation", () => {
         const schema = {
           type: "array",
           items: {
-            type: "string",
-          },
+            type: "string"
+          }
         };
 
         const formData = ["aaa", "bbb", "ccc"];
@@ -674,11 +737,11 @@ describe("Validation", () => {
         const { node, onError } = createFormComponent({
           schema,
           validate,
-          formData,
+          formData
         });
         submitForm(node);
         sinon.assert.calledWithMatch(onError.lastCall, [
-          { stack: "root: Forbidden value: bbb" },
+          { stack: "root: Forbidden value: bbb" }
         ]);
       });
     });
@@ -690,8 +753,8 @@ describe("Validation", () => {
           required: ["foo"],
           properties: {
             foo: { type: "string" },
-            bar: { type: "string" },
-          },
+            bar: { type: "string" }
+          }
         };
 
         let node, onError;
@@ -699,9 +762,9 @@ describe("Validation", () => {
           const compInfo = createFormComponent({
             schema,
             formData: {
-              foo: undefined,
+              foo: undefined
             },
-            showErrorList: false,
+            showErrorList: false
           });
           node = compInfo.node;
           onError = compInfo.onError;
@@ -721,8 +784,8 @@ describe("Validation", () => {
               params: { missingProperty: "foo" },
               property: ".foo",
               schemaPath: "#/required",
-              stack: ".foo is a required property",
-            },
+              stack: ".foo is a required property"
+            }
           ]);
         });
       });
@@ -731,11 +794,11 @@ describe("Validation", () => {
     describe("Custom ErrorList", () => {
       const schema = {
         type: "string",
-        minLength: 1,
+        minLength: 1
       };
 
       const uiSchema = {
-        foo: "bar",
+        foo: "bar"
       };
 
       const formData = 0;
@@ -745,7 +808,7 @@ describe("Validation", () => {
         errorSchema,
         schema,
         uiSchema,
-        formContext: { className },
+        formContext: { className }
       }) => (
         <div>
           <div className="CustomErrorList">{errors.length} custom</div>
@@ -763,7 +826,7 @@ describe("Validation", () => {
           liveValidate: true,
           formData,
           ErrorList: CustomErrorList,
-          formContext: { className: "foo" },
+          formContext: { className: "foo" }
         });
         expect(node.querySelectorAll(".CustomErrorList")).to.have.length.of(1);
         expect(node.querySelector(".CustomErrorList").textContent).eql(
@@ -783,7 +846,7 @@ describe("Validation", () => {
     describe("Custom meta schema", () => {
       let onError, node;
       const formData = {
-        datasetId: "no err",
+        datasetId: "no err"
       };
 
       const schema = {
@@ -794,13 +857,13 @@ describe("Validation", () => {
             properties: {
               datasetId: {
                 pattern: "\\d+",
-                type: "string",
-              },
+                type: "string"
+              }
             },
             required: ["datasetId"],
-            type: "object",
-          },
-        },
+            type: "object"
+          }
+        }
       };
 
       beforeEach(() => {
@@ -809,8 +872,8 @@ describe("Validation", () => {
           formData,
           liveValidate: true,
           additionalMetaSchemas: [
-            require("ajv/lib/refs/json-schema-draft-04.json"),
-          ],
+            require("ajv/lib/refs/json-schema-draft-04.json")
+          ]
         });
         node = withMetaSchema.node;
         onError = withMetaSchema.onError;
@@ -825,13 +888,13 @@ describe("Validation", () => {
             params: { pattern: "\\d+" },
             property: ".datasetId",
             schemaPath: "#/properties/datasetId/pattern",
-            stack: '.datasetId should match pattern "\\d+"',
-          },
+            stack: '.datasetId should match pattern "\\d+"'
+          }
         ]);
         onError.resetHistory();
 
         Simulate.change(node.querySelector("input"), {
-          target: { value: "1234" },
+          target: { value: "1234" }
         });
         expect(node.querySelectorAll(".errors li")).to.have.length.of(0);
         sinon.assert.notCalled(onError);
