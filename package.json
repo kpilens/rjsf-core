@@ -17,11 +17,14 @@
     "test:watch": "tsdx test --watch",
     "test:update": "tsdx test --u",
     "test-old": "cross-env BABEL_ENV=test NODE_ENV=test mocha --require @babel/register --require ./test/setup-jsdom.js test/**/*_test.js",
-    "test-coverage": "tsdx test --coverage"
+    "test-coverage": "tsdx test --coverage",
+    "prepare": "yarn build",
+    "version": "git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kpilens/rjsf-core.git"
+    "url": "git+https://github.com/kpilens/rjsf-core"
   },
   "author": "Nicolas Perriault <nperriault@mozilla.com>",
   "keywords": [
@@ -41,12 +44,10 @@
     ]
   },
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "module": "dist/core.esm.js",
-  "typings": "index.d.ts",
   "files": [
-    "dist",
-    "lib",
-    "index.d.ts"
+    "dist/**/*"
   ],
   "engineStrict": false,
   "engines": {
