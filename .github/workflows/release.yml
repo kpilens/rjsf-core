@@ -14,7 +14,7 @@ jobs:
           node-version: 14.x
           registry-url: https://registry.npmjs.org/
           # registry-url: https://npm.pkg.github.com/
-      - run: npm install && git add -A && git commit -m "release"
+      - run: npm install
       # - run: npm test
       - run: npx lerna publish from-git --yes --no-verify-access
         env:
