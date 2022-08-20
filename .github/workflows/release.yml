@@ -17,6 +17,7 @@ jobs:
       - run: npm install
       - run: git add -A
       - run: git stash
+      - run: git checkout master
       # - run: npm test
       - run: npx lerna publish from-package --yes --no-verify-access
         env:
