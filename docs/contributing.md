@@ -35,7 +35,7 @@ npm test
 
 ### Code coverage
 
-Code coverage reports are currently available only for the `@rjsf/core` package. They are generated using [nyc](https://github.com/istanbuljs/nyc) each time the `npm test-coverage` script is run.
+Code coverage reports are currently available only for the `@kpilens/rjsf-core` package. They are generated using [nyc](https://github.com/istanbuljs/nyc) each time the `npm test-coverage` script is run.
 The full report can be seen by opening `./coverage/lcov-report/index.html`.
 
 
@@ -50,7 +50,7 @@ npx lerna version
 Make sure you use [semver](https://semver.org/) for version numbering when selecting the version.
 The command above will create a new version tag and push it to GitHub.
 
-Note that if you are releasing a new major version, you should bump the peer dependency `@rjsf/core` in the `package.json` files of other packages accordingly.
+Note that if you are releasing a new major version, you should bump the peer dependency `@kpilens/rjsf-core` in the `package.json` files of other packages accordingly.
 
 Then, create a release in
 the Github "Releases" tab and add a description of the changes in the new release. You can copy

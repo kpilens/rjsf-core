@@ -32,7 +32,7 @@ should change the heading of the (upcoming) version to include a major version b
 
 # 4.2.0
 
-## @rjsf/core
+## @kpilens/rjsf-core
 - Feature for ui:submitButtonOptions on the submit button for forms (https://github.com/rjsf-team/react-jsonschema-form/pull/2640)
 - Fix `ui:orderable` and `ui:removable` in arrays (#2797)
 - Fix for nested allOf blocks with multiple if/then/else statements failing to render correctly (https://github.com/rjsf-team/react-jsonschema-form/pull/2839)
@@ -70,12 +70,12 @@ should change the heading of the (upcoming) version to include a major version b
 - Added support for additionalProperties schema property (#2817)
 # v4.1.0
 
-## @rjsf/core
+## @kpilens/rjsf-core
 
 - To improve performance, skip validating subschemas in oneOf / anyOf if formData is undefined (#2676)
 - Fixed the `toIdSchema()` typescript definition to add new `idSeparator` prop along with the spelling of `idPrefix`
   - Also passed the new `idSeparator` prop through to the `AnyOfField` and `OneOfField` inside of `SchemaField`
-  - Updated `ArrayField` in `@rjsf/core` to pass `idSeparator` and `idPrefix` through to `SchemaField`, fixing a small bug
+  - Updated `ArrayField` in `@kpilens/rjsf-core` to pass `idSeparator` and `idPrefix` through to `SchemaField`, fixing a small bug
 - Added support for the new `ui:hideError` feature, which allows you to hide errors at a field level
 
 ## @rjsf/material-ui
@@ -87,10 +87,10 @@ should change the heading of the (upcoming) version to include a major version b
 
 # v4.0.1
 
-- Bumped the peer dependencies of `@rjsf/core` to `^4.0.0` for all of themes in `package.json`
+- Bumped the peer dependencies of `@kpilens/rjsf-core` to `^4.0.0` for all of themes in `package.json`
 - Also, added tests to all themes to verify that the `tagName` prop works as expected
 
-## @rjsf/core
+## @kpilens/rjsf-core
 - Updated `Form` to support the `semantic-ui` and `material-ui` themes to allow them work when `tagName` is provided
 - Support if/then/else (#2700)
 
@@ -103,7 +103,7 @@ should change the heading of the (upcoming) version to include a major version b
 
 # v4.0.0
 
-## @rjsf/core
+## @kpilens/rjsf-core
 - Add React 17 as a supported peer-dependency
 - Introduce `idSeparator` prop to change the path separator used to generate field names (https://github.com/rjsf-team/react-jsonschema-form/pull/2628)
 - Array fields support custom widgets (previously, only multiple-choice arrays with `enums` or `uniqueItems` support it) (https://github.com/rjsf-team/react-jsonschema-form/pull/2697)
@@ -136,14 +136,14 @@ should change the heading of the (upcoming) version to include a major version b
 
 # v3.2.1
 
-## @rjsf/core
+## @kpilens/rjsf-core
 - Don't crash when non-object formData is passed in to a schema item with additionalProperties (https://github.com/rjsf-team/react-jsonschema-form/pull/2595)
 - Upgrade jsonpointer to 5.0.0 to address security vulnerability (https://github.com/rjsf-team/react-jsonschema-form/pull/2599)
 - Feature for ui:submitButtonOptions on the submit button for forms (https://github.com/rjsf-team/react-jsonschema-form/pull/2640)
 
 # v3.2.0
 
-## @rjsf/core
+## @kpilens/rjsf-core
 - Fix for clearing errors after updating and submitting form (https://github.com/rjsf-team/react-jsonschema-form/pull/2536)
 - bootstrap-4 TextWidget wrappers now pull from registry, add rootSchema to Registry, fix FieldProps.onFocus type to match WidgetProps (https://github.com/rjsf-team/react-jsonschema-form/pull/2519)
 - Added global `readonly` flag to the `Form` (https://github.com/rjsf-team/react-jsonschema-form/pull/2554)
@@ -162,7 +162,7 @@ should change the heading of the (upcoming) version to include a major version b
 
 # v3.1.0
 
-## @rjsf/core
+## @kpilens/rjsf-core
 - Properly assign label prop for MultiSelect ArrayField (https://github.com/rjsf-team/react-jsonschema-form/pull/2459)
 - Take into account implicitly defined types when rendering labels for fields (https://github.com/rjsf-team/react-jsonschema-form/pull/2502)
 

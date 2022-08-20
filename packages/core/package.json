@@ -1,5 +1,5 @@
 {
-  "name": "@rjsf/core",
+  "name": "@kpilens/rjsf-core",
   "version": "4.2.8",
   "description": "A simple React component capable of building HTML forms out of a JSON schema.",
   "scripts": {
@@ -121,5 +121,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "a795639bf2d1cbd898207287438f82d5d573fdb7"
+  "gitHead": "3b9478b7919fd21752fd348a306fcbba1442c7cb"
 }
