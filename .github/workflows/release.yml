@@ -15,9 +15,10 @@ jobs:
           registry-url: https://registry.npmjs.org/
           # registry-url: https://npm.pkg.github.com/
       - run: npm install
+      - run: git add -A
       - run: git stash
       # - run: npm test
-      - run: npx lerna publish from-gi --yes --no-verify-access
+      - run: npx lerna publish from-package --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
