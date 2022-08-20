@@ -17,7 +17,7 @@ jobs:
       - run: npm install
       - run: git stash
       # - run: npm test
-      - run: npx lerna publish from-git --yes --no-verify-access
+      - run: npx lerna publish from-gi --yes --no-verify-access
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
