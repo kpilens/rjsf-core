@@ -17,7 +17,8 @@
     "test:watch": "tsdx test --watch",
     "test:update": "tsdx test --u",
     "test-old": "cross-env BABEL_ENV=test NODE_ENV=test mocha --require @babel/register --require ./test/setup-jsdom.js test/**/*_test.js",
-    "test-coverage": "tsdx test --coverage"
+    "test-coverage": "tsdx test --coverage",
+    "prepare": "npm run build"
   },
   "lint-staged": {
     "{src,test}/**/*.js": [
