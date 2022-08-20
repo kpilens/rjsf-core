@@ -108,7 +108,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rjsf-team/react-jsonschema-form.git"
+    "url": "git+https://github.com/kpilens/rjsf-core"
   },
   "author": "Nicolas Perriault <nperriault@mozilla.com>",
   "keywords": [
@@ -117,8 +117,9 @@
     "json-schema"
   ],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/rjsf-team/react-jsonschema-form",
+  "homepage": "https://github.com/kpilens/rjsf-core",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "a795639bf2d1cbd898207287438f82d5d573fdb7"
 }
